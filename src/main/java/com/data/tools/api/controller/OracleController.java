@@ -13,9 +13,14 @@ import java.util.List;
 @RequestMapping("/api/oracle")
 public class OracleController {
 
+
     @Autowired
     private OracleConnectionService oracleConnectionService;
-
+    @GetMapping("/deneme")
+    private String getText()
+    {
+        return  "Deneme";
+    }
     @GetMapping("/schemas")
     private List<String> getSchemas(@RequestParam String url,@RequestParam String username,@RequestParam String password)
     {
