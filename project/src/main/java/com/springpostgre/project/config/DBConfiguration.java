@@ -1,5 +1,7 @@
 package com.springpostgre.project.config;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "db_configuration")
@@ -8,10 +10,10 @@ public class DBConfiguration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String conn_name;
+    private String connection;
     private String host;
     private String port;
-    private String database;
+    private String sid;
 
     private String username;
 
@@ -26,12 +28,12 @@ public class DBConfiguration {
         this.id = id;
     }
 
-    public String getConnName() {
-        return conn_name;
+    public String getConnection() {
+        return connection;
     }
 
-    public void setConnName(String conn_name) {
-        this.conn_name = conn_name;
+    public void setConnection(String connection) {
+        this.connection = connection;
     }
 
     public String getHost() {
@@ -51,12 +53,12 @@ public class DBConfiguration {
         this.port = port;
     }
 
-    public String getDatabase() {
-        return database;
+    public String getSid() {
+        return sid;
     }
 
-    public void setDatabase(String db_name) {
-        this.database = db_name;
+    public void setSid(String sid) {
+        this.sid = sid;
     }
 
     public String getUsername() {
