@@ -37,8 +37,9 @@ public class DBController {
     public void deleteConfig(@PathVariable Long id){
         dbService.deleteConfig(id);}
 
+    // Update a config
     @PutMapping("/{id}")
-    public DBConfiguration updateConfig(@PathVariable Long id, DBConfiguration configDetails){
+    public DBConfiguration updateConfig(@PathVariable Long id, @RequestBody DBConfiguration configDetails){
         return dbService.updateConfig(id, configDetails);
     }
 
