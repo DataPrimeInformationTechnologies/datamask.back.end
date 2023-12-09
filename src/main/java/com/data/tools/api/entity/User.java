@@ -1,18 +1,14 @@
 package com.data.tools.api.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -46,6 +42,8 @@ public class User {
 	@UpdateTimestamp
 	private Timestamp updatedAt;
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<DbConnection> dbConnections;
 }
 
 
