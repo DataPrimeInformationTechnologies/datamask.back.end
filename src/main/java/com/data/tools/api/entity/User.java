@@ -1,7 +1,7 @@
 package com.data.tools.api.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
+
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,8 +42,6 @@ public class User {
 	@UpdateTimestamp
 	private Timestamp updatedAt;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<DbConnection> dbConnections;
 }
 
 

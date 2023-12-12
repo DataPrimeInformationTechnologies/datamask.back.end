@@ -1,29 +1,29 @@
 package com.data.tools.api.security;
 
-import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.data.tools.api.exceptions.Exceptions;
+import com.data.tools.api.exceptions.GlobalException;
+import com.data.tools.api.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.data.tools.api.entity.User;
-import com.data.tools.api.repository.UserRepository;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	@Autowired
 	private UserRepository userRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	public UesrDetailsImpl loadUserByUsername(String email) throws UsernameNotFoundException {
 		
-		User existingUser = userRepository
-				.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found for the email:"+email));
+		User user = this.userRepository
+				.findByEmail(email).orElseThrow(() -> GlobalException.throwEx(Exceptions.USER_NOT_FOUND, "User not found for the email:" + email));
 		
-		return new org.springframework.security.core.userdetails.User(existingUser.getEmail(), existingUser.getPassword(), new ArrayList<>());
+		return new UesrDetailsImpl(user);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.data.tools.api.service.connection;
+package com.data.tools.api.service;
 
 import com.data.tools.api.entity.DbConfiguration;
 import com.data.tools.api.entity.DbMigration;

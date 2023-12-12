@@ -1,7 +1,6 @@
 package com.data.tools.api.service;
 
 import com.data.tools.api.constants.SQLConst;
-import com.data.tools.api.service.connection.DbConnectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class BaseDbOperationService {
+public class DbOperationService {
 
     private final DbConnectionService dbConnectionService;
 

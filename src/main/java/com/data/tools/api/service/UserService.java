@@ -3,11 +3,9 @@ package com.data.tools.api.service;
 import com.data.tools.api.exceptions.Exceptions;
 import com.data.tools.api.exceptions.GlobalException;
 import com.data.tools.api.repository.UserRepository;
+import com.data.tools.api.util.UserHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +13,14 @@ import com.data.tools.api.entity.User;
 import com.data.tools.api.entity.UserModel;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserService {
 	
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Override
+
 	public User createUser(UserModel user) {
 		if (userRepository.existsByEmail(user.getEmail())) {
 			throw GlobalException.throwEx(Exceptions.USER_ALREADY_EXIST, "User is already register with email:"+user.getEmail());
@@ -34,15 +31,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(newUser);
 	}
 
-	@Override
-	public User readUser() {
-		Long userId = getLoggedInUser().getId();
-		return userRepository.findById(userId).orElseThrow(() -> GlobalException.throwEx(Exceptions.OBJECT_NOT_FOUND_BY_ID, "User not found for the id:"+userId));
-	}
 
-	@Override
 	public User updateUser(UserModel user) {
-		User existingUser = readUser();
+		User existingUser = UserHelper.getUser();
 		existingUser.setName(user.getName() != null ? user.getName() : existingUser.getName());
 		existingUser.setEmail(user.getEmail() != null ? user.getEmail() : existingUser.getEmail());
 		existingUser.setPassword(user.getPassword() != null ? bcryptEncoder.encode(user.getPassword()) : existingUser.getPassword());
@@ -50,20 +41,12 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(existingUser);
 	}
 
-	@Override
 	public void deleteUser() {
-		User existingUser = readUser();
+		User existingUser = UserHelper.getUser();
 		userRepository.delete(existingUser);
 	}
 
-	@Override
-	public User getLoggedInUser() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		String email = authentication.getName();
-		
-		return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found for the email"+email));
-	}
+
 
 }
 

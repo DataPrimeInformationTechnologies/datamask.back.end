@@ -1,6 +1,10 @@
 package com.data.tools.api.controller;
 
 
+import com.data.tools.api.entity.User;
+import com.data.tools.api.entity.UserModel;
+import com.data.tools.api.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,18 +13,15 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.data.tools.api.entity.AuthModel;
 import com.data.tools.api.entity.JwtResponse;
-import com.data.tools.api.entity.User;
-import com.data.tools.api.entity.UserModel;
 import com.data.tools.api.security.CustomUserDetailsService;
-import com.data.tools.api.service.UserService;
 import com.data.tools.api.util.JwtTokenUtil;
-import jakarta.validation.Valid;
 
 @RestController
 public class AuthController {
@@ -28,11 +29,13 @@ public class AuthController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	@Autowired
-	private UserService userService;
+
 	
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
@@ -64,7 +67,7 @@ public class AuthController {
 
 	@PostMapping("/register")
 	public ResponseEntity<User> save(@Valid @RequestBody UserModel user) {
-		return new ResponseEntity<User>(userService.createUser(user), HttpStatus.CREATED);
+		return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
 	}
 }
 

@@ -1,6 +1,7 @@
 package com.data.tools.api.entity;
 import java.sql.Timestamp;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -8,15 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -41,12 +33,20 @@ public class DbConfiguration {
 
     private String description;
 
-    @NotBlank(message = "Category should not be null")
-    private String category;
+    @Column(name="url")
+    private String url;
 
-    @Column(name = "ip_address")
-    @NotNull(message = "Ip Address should not be null")
-    private String ipAddress;
+    @Column(name="username")
+    private String userName;
+
+    @Column(name = "password")
+    private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
@@ -56,9 +56,4 @@ public class DbConfiguration {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private User user;
 }
