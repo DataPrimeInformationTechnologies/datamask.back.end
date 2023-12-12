@@ -5,6 +5,7 @@ import com.data.tools.api.exceptions.Exceptions;
 import com.data.tools.api.exceptions.GlobalException;
 import com.data.tools.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

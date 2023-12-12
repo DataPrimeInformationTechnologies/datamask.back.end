@@ -58,7 +58,7 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
-						.requestMatchers("/register","/DbConfigurations","/db-con/**").permitAll()
+						.requestMatchers("/register","/DbConfigurations","/db-con/**","/db-conf/add").permitAll()
 						.anyRequest()
 				.permitAll())
 				.csrf(AbstractHttpConfigurer::disable);

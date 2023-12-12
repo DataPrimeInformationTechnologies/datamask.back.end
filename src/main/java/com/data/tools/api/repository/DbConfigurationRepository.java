@@ -11,5 +11,5 @@ import com.data.tools.api.entity.DbConfiguration;
 @Repository
 public interface DbConfigurationRepository extends JpaRepository<DbConfiguration, Long> {
 
-	
+
 }
