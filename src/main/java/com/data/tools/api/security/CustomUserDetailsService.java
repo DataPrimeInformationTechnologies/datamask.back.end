@@ -15,7 +15,7 @@ import com.data.tools.api.entity.User;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 	
 	@Override
 	public UesrDetailsImpl loadUserByUsername(String email) throws UsernameNotFoundException {
