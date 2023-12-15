@@ -14,6 +14,6 @@ public class SQLConst {
         return String.format("SELECT table_name as Tables FROM all_tables WHERE owner = '%s'",schemaName);
     }
     public static String getColumnsByTable(String schemaName, String tableName) {
-        return String.format("SELECT column_name,data_type FROM all_tab_columns WHERE owner = '%s' AND table_name = '%s';",schemaName,tableName);
+        return String.format("SELECT column_name,data_type FROM all_tab_columns WHERE owner = '%s' AND table_name = '%s'",schemaName,tableName);
     }
 }
