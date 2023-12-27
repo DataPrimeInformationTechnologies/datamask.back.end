@@ -1,6 +1,7 @@
 package com.data.tools.api.service;
 
 import com.data.tools.api.constants.SQLConst;
+import com.data.tools.api.dto.TableInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -56,16 +57,21 @@ public class DbOperationService {
         return result;
     }
 
-    public List getColumnsAndTypeBySelectedTable(Long dbConfigId,String schemaName, String tableName) throws SQLException {
+    public List<TableInfo> getColumnsAndTypeBySelectedTable(Long dbConfigId, String schemaName, String tableName) throws SQLException {
         Connection connection = dbConnectionService.getConnectionById(dbConfigId);
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SQLConst.getColumnsByTable(schemaName,tableName));
 
-        List<Map<String,String>> result = new ArrayList<>();
+        List<TableInfo> result = new ArrayList<>();
         while(resultSet.next()){
-            Map<String,String> resMap= new HashMap<>();
-            resMap.put(resultSet.getString("column_name"),resultSet.getString("data_type"));
-            result.add(resMap);
+            TableInfo columnDTO =new TableInfo(
+                    resultSet.getString("COLUMN_NAME"),
+                    resultSet.getString("DATA_TYPE"),
+                    resultSet.getInt("DATA_LENGTH"),
+                    resultSet.getString("NULLABLE"),
+                    resultSet.getString("CONSTRAINTS")
+            );
+            result.add(columnDTO);
         }
         return result;
     }

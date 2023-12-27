@@ -1,5 +1,6 @@
 package com.data.tools.api.controller;
 
+import com.data.tools.api.dto.TableInfo;
 import com.data.tools.api.service.DbOperationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
@@ -32,8 +33,8 @@ public class DbOperationController {
     }
 
     @GetMapping("/getColumns")
-    public ResponseEntity<List<Map<String,String>>> getColumnsAndDataType(@Param("dbConfigId") Long dbConfigId, @Param("schemaName") String schemaName, @Param("tableName") String tableName) throws SQLException {
-        List<Map<String,String>> result = dbOperationService.getColumnsAndTypeBySelectedTable(dbConfigId,schemaName,tableName);
+    public ResponseEntity<List<TableInfo>>getColumnsAndDataType(@Param("dbConfigId") Long dbConfigId, @Param("schemaName") String schemaName, @Param("tableName") String tableName) throws SQLException {
+        List<TableInfo> result = dbOperationService.getColumnsAndTypeBySelectedTable(dbConfigId,schemaName,tableName);
         return ResponseEntity.ok(result);
     }
 
