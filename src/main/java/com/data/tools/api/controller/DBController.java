@@ -18,7 +18,7 @@ public class DBController {
     @Autowired
     private DBConnectionTestService connectionTestService;
 
-    // Test DB Connection
+    // Test DB Connection.
     @GetMapping("/{id}/testConnection")
     public ResponseEntity<String> testDBConnection(@PathVariable Long id) {
         String result = connectionTestService.testDBConnection(id);
