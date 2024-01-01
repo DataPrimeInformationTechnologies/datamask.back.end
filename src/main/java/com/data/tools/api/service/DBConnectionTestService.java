@@ -20,7 +20,7 @@ public class DBConnectionTestService {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.dbConfigurationRepository = dbConfigurationRepository;
     }
-    // Test DB connection
+    // Test DB connection.
     public String testDBConnection(Long id) {
         DBConfiguration2 dbConfiguration = dbConfigurationRepository.findById(id)
                 .orElseThrow(() -> new DBNotFoundException("Config not found"));
