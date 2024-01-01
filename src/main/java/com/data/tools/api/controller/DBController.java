@@ -1,6 +1,7 @@
 package com.data.tools.api.controller;
 import com.data.tools.api.entity.DBConfiguration2;
 import com.data.tools.api.service.DBConfigurationService2;
+import com.data.tools.api.service.DBConnectionTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,15 @@ public class DBController {
 
     @Autowired
     private DBConfigurationService2 dbService;
+    @Autowired
+    private DBConnectionTestService connectionTestService;
 
+    // Test DB Connection
+    @GetMapping("/{id}/testConnection")
+    public ResponseEntity<String> testDBConnection(@PathVariable Long id) {
+        String result = connectionTestService.testDBConnection(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
     // Post config
     @PostMapping

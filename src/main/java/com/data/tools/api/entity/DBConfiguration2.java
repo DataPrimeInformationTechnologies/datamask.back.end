@@ -10,10 +10,10 @@ public class DBConfiguration2 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String connection;
+    private String connection_name;
     private String host;
     private String port;
-    private String sid;
+    private String service_name;
 
     private String username;
 
@@ -28,12 +28,12 @@ public class DBConfiguration2 {
         this.id = id;
     }
 
-    public String getConnection() {
-        return connection;
+    public String getConnectionName() {
+        return connection_name;
     }
 
-    public void setConnection(String connection) {
-        this.connection = connection;
+    public void setConnectionName(String connection_name) {
+        this.connection_name = connection_name;
     }
 
     public String getHost() {
@@ -53,13 +53,11 @@ public class DBConfiguration2 {
         this.port = port;
     }
 
-    public String getSid() {
-        return sid;
+    public String getServiceName() {
+        return service_name;
     }
 
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
+    public void setServiceName(String service_name) {this.service_name = service_name;}
 
     public String getUsername() {
         return username;

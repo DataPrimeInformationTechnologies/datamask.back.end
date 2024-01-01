@@ -61,8 +61,8 @@ public class DBConfigurationService2 {
             existingConfig.setPassword(configDetails.getPassword());
             existingConfig.setUsername(configDetails.getUsername());
             existingConfig.setRole(configDetails.getRole());
-            existingConfig.setSid(configDetails.getSid());
-            existingConfig.setConnection(configDetails.getConnection());
+            existingConfig.setServiceName(configDetails.getServiceName());
+            existingConfig.setConnectionName(configDetails.getConnectionName());
             return dbConfigurationRepository.save(existingConfig);
         }
         else {
