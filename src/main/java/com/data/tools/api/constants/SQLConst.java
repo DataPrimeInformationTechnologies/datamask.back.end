@@ -18,6 +18,6 @@ public class SQLConst {
     }*/
 
     public static String getColumnsByTable(String schemaName, String tableName) {
-        return String.format("SELECT COLUMN_NAME, DATA_TYPE, DATA_LENGTH, NULLABLE,(SELECT CONSTRAINT_NAME FROM ALL_CONS_COLUMNS WHERE TABLE_NAME = '%s' AND COLUMN_NAME = all_tab_columns.COLUMN_NAME AND OWNER = '%s') AS CONSTRAINTS FROM all_tab_columns WHERE owner='%s' AND table_name='%s'",tableName,schemaName,schemaName,tableName);
+        return String.format("SELECT atc.COLUMN_NAME, atc.DATA_TYPE, atc.DATA_LENGTH, atc.NULLABLE,( SELECT LISTAGG(ACC.CONSTRAINT_NAME, ', ') WITHIN GROUP (ORDER BY ACC.CONSTRAINT_NAME)FROM ALL_CONS_COLUMNS ACC WHERE ACC.TABLE_NAME = '%s' AND ACC.COLUMN_NAME = atc.COLUMN_NAME AND ACC.OWNER = '%s') AS CONSTRAINTS FROM ALL_TAB_COLUMNS atc WHERE atc.OWNER = '%s' AND atc.TABLE_NAME = '%s'",tableName,schemaName,schemaName,tableName);
     }
 }
