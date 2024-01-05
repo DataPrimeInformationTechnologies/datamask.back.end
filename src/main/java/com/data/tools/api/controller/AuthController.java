@@ -44,7 +44,8 @@ public class AuthController {
 	public ResponseEntity<JwtResponse> login(@RequestBody AuthModel authModel) throws Exception {
 		
 		authenticate(authModel.getEmail(), authModel.getPassword());
-		
+
+		//todo test commit
 		//we need to generate the jwt token
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authModel.getEmail());
 		
