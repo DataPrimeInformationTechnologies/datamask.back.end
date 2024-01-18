@@ -30,7 +30,7 @@ public class DbConfigurationController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<DbConfiguration> addDbConfiguration(@RequestBody DbConfiguration dbc, @Param("userId") Long userId) {
+    public ResponseEntity<DbConfiguration> addDbConfiguration(@RequestBody DbConfiguration dbc, @RequestParam("userId") Long userId) {
         DbConfiguration configuration = dbConfigurationService.addConfiguration(dbc,userId);
         return ResponseEntity.ok(configuration);
     }
@@ -42,7 +42,7 @@ public class DbConfigurationController {
     }
 
     @PutMapping("/update/{confId}")
-    public ResponseEntity<DbConfiguration> updateDbConfiguration(@PathVariable Long confId, @RequestBody DbConfiguration updateConfig,@Param("userId") Long userId) {
+    public ResponseEntity<DbConfiguration> updateDbConfiguration(@PathVariable Long confId, @RequestBody DbConfiguration updateConfig,@RequestParam("userId") Long userId) {
         DbConfiguration configuration = dbConfigurationService.updateDbConfiguration(confId,updateConfig,userId);
         return ResponseEntity.ok(configuration);
     }

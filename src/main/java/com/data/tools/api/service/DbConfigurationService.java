@@ -2,6 +2,9 @@ package com.data.tools.api.service;
 
 import com.data.tools.api.entity.DbConfiguration;
 import com.data.tools.api.entity.User;
+import com.data.tools.api.exceptions.Exceptions;
+import com.data.tools.api.exceptions.GlobalException;
+import com.data.tools.api.exceptions.GlobalExceptionControllerAdvice;
 import com.data.tools.api.repository.DbConfigurationRepository;
 import com.data.tools.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,14 +27,14 @@ public class DbConfigurationService {
 
     public DbConfiguration addConfiguration(DbConfiguration dbConfiguration,Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id:" + userId));
+                .orElseThrow(() -> GlobalException.throwEx(Exceptions.USER_NOT_FOUND,"User not found with id:" + userId));
         dbConfiguration.setUser(user);
         return dbConfigurationRepository.save(dbConfiguration);
     }
 
     public DbConfiguration getDbConfigurationById(Long confId) {
         return dbConfigurationRepository.findById(confId)
-                .orElseThrow(() -> new EntityNotFoundException("Db configuration not found with id:"+confId));
+                .orElseThrow(() -> GlobalException.throwEx(Exceptions.ID_NOT_FOUND,"Db Configuration not found with id:"+confId));
     }
 
     public  void deleteDbConfigurationById(Long confId) {
@@ -40,9 +43,9 @@ public class DbConfigurationService {
 
     public  DbConfiguration updateDbConfiguration(Long confId,DbConfiguration updateConfig,Long userId) {
         DbConfiguration  existingConfig = dbConfigurationRepository.findById(confId)
-                .orElseThrow(() -> new EntityNotFoundException("Db configuration not found with id:"+confId));
+                .orElseThrow(() -> GlobalException.throwEx(Exceptions.ID_NOT_FOUND,"Db configuration not found with id:"+confId));
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id:" + userId));
+                .orElseThrow(() -> GlobalException.throwEx(Exceptions.USER_NOT_FOUND,"User not found with id:" + userId));
         existingConfig.setName(updateConfig.getName());
         existingConfig.setDescription(updateConfig.getDescription());
         existingConfig.setUrl(updateConfig.getUrl());
