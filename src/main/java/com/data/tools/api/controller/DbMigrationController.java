@@ -34,7 +34,7 @@ public class DbMigrationController {
     }
 
     @GetMapping("/table")
-    public ResponseEntity<String> migrateTable(@Param("migrationId") Long migrationId,@Param("schemaName") String schemaName,@Param("tableName") String tableName) throws SQLException {
+    public ResponseEntity<String> migrateTable(@RequestParam("migrationId") Long migrationId,@RequestParam("schemaName") String schemaName,@RequestParam("tableName") String tableName) throws SQLException {
        return ResponseEntity.ok(dbMigrationService.migrate(migrationId,schemaName,tableName));
     }
 }
